@@ -14,8 +14,10 @@ db.once('open', () => console.log('Connected to db'))
 
 app.use(express.json())
 
-const products = require('./routes/products')
+const product = require('./routes/product')
+const category = require('./routes/category')
 
-app.use('/products', products)
+app.use('/product', product)
+app.use('/category', category)
 
 app.listen(port, () => {`server is running on port: ${port}`})
