@@ -14,9 +14,11 @@ db.once('open', () => console.log('Connected to db'))
 
 app.use(express.json())
 
+const auth = require('./routes/auth')
 const product = require('./routes/product')
 const category = require('./routes/category')
 
+app.use('/auth', auth)
 app.use('/product', product)
 app.use('/category', category)
 
