@@ -31,23 +31,17 @@ exports.login = async (req, res) => {
         if (user) {
             const validPass = await bcrypt.compare(req.body.password, user.password);
             if (!validPass) return res.status(400).send("Email or Password is wrong");
-
             const token = jwt.sign({id: user.id}, config.TOKEN_SECRET);
             res.header("auth-token", token).send({"token": token});
+        } else {
+            res.status(401).send('Invalid email or password');
         }
     }
     catch (err) {
-        if(err) {
-            res.status(401).send(`Mobile/Email or Password is wrong`);
-        }
-        else {
-            let error_data = {
-                model_obj: {param: req.params, body: req.body},
-                error_obj: err,
-                error_msg: err.message
-            };
-            res.status(500).send("Error retrieving User");
-        }
-    }   
-    
+        res.status(500).send("Error retrieving User");
+    }  
+};
+
+exports.authuseronly = (req, res) => {
+    res.send("Hey,You are authenticated user. So you are authorized to access here.");
 };
