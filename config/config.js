@@ -1,3 +1,3 @@
 module.exports = {
-    TOKEN_SECRET: "mc7d5sdfF",
+  TOKEN_SECRET: process.env.DB_HOST,
 };
